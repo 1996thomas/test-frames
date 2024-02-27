@@ -1,6 +1,7 @@
 import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
 import { NextRequest, NextResponse } from 'next/server';
 import { NEXT_PUBLIC_URL } from '../../config';
+import { createTextAndImageOverlay } from '../../utils/createTextAndImageOverlay';
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   let accountAddress: string | undefined = '';
@@ -12,16 +13,18 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     accountAddress = message.interactor.verified_accounts[0];
   }
 
+  let curr = 'Salut';
+
   if (message?.button === 1) {
-    return NextResponse.redirect(
-      'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
-      { status: 302 },
-    );
+    curr = 'Aurevoir';
   }
+
+  const { textTest } = await createTextAndImageOverlay(curr);
 
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
+        { label: textTest},
         { label: 'TEAM A', action: 'post' },
         { label: 'TEAM B', action: 'post' },
       ],
