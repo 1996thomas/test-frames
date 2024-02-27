@@ -2,10 +2,12 @@ import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
 
+const testText = 'Salut bg'
+
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Story time!',
+      label: testText,
     },
     {
       action: 'link',
@@ -39,7 +41,6 @@ export const metadata: Metadata = {
     ...frameMetadata,
   },
 };
-
 export default function Page() {
   return (
     <>
