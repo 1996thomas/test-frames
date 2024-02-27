@@ -4,7 +4,6 @@ import { NEXT_PUBLIC_URL } from '../../config';
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   let accountAddress: string | undefined = '';
-  let text: string | undefined = '';
 
   const body: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
@@ -13,11 +12,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     accountAddress = message.interactor.verified_accounts[0];
   }
 
-  if (message?.input) {
-    text = message.input;
-  }
-
-  if (message?.button === 3) {
+  if (message?.button === 1) {
     return NextResponse.redirect(
       'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
       { status: 302 },
@@ -27,9 +22,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
-        {
-          label: `Story: ${text} 🌲🌲`,
-        },
+        { label: 'TEAM A', action: 'post' },
+        { label: 'TEAM B', action: 'post' },
       ],
       image: {
         src: `${NEXT_PUBLIC_URL}/park-1.png`,

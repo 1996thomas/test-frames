@@ -2,22 +2,10 @@ import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
 
-const testText = 'Salut bg'
-
 const frameMetadata = getFrameMetadata({
   buttons: [
-    {
-      label: testText,
-    },
-    {
-      action: 'link',
-      label: 'Link to Google',
-      target: 'https://www.google.com',
-    },
-    {
-      label: 'Redirect to pictures',
-      action: 'post_redirect',
-    },
+    {label:'TEAM A', action: 'post'},
+    {label:'TEAM B', action: 'post'}
   ],
   image: {
     src: `${NEXT_PUBLIC_URL}/park-3.png`,
@@ -30,6 +18,7 @@ const frameMetadata = getFrameMetadata({
 });
 
 export const metadata: Metadata = {
+  metadataBase : new URL(NEXT_PUBLIC_URL),
   title: 'zizzamia.xyz',
   description: 'LFG',
   openGraph: {
